@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My School</title>
+</head>
+
+<body>
+
+    <h1>Welcome to My Schools</h1>
+
+    <script>
+        const getDataInSchool = async () => {
+            const pathStudet = await fetch('/students', {
+                body: JSON.stringify({
+                    method: 'GET',
+                    title: 'get all the student',
+                    body: 'here you can geting the students',
+                    id: 2
+                }),
+                Headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            const response = await pathStudet.json()
+            console.log(response);
+        }
+        getDataInSchool()
+
+        const deleteStudentInData = async () => {
+            const pathStudet = await fetch('/studentDel/:name', {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    title: 'delete Student',
+                    body: 'Here you can delete the student',
+                    id: 2
+                }),
+                Headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+        }
+        deleteStudentInData()
+
+        const showGradeStudent = async () => {
+            const pathStudet = await fetch('/grades', {
+                body: JSON.stringify({
+                    method: 'GET',
+                    title: 'The grades of all students',
+                    body: 'here you can bring all the students grades',
+                    id: 2
+                }),
+                Headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            const response = await pathStudet.json()
+            console.log(response);
+        }
+
+        $(function () {
+            $.get('/students/:name', (showStudentData) => {
+                console.log(showStudentData);
+            })
+            $.ajax({
+                url: '/studentIdDel/:id',
+                type: 'DELETE',
+                success: function (result) {
+                    // Do something with the result
+                    console.log(result);
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>
